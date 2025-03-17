@@ -33,7 +33,7 @@ npm install
 npm run dev
 ```
 
-This starts the embeddable widget on `http://localhost:30001`.
+This starts the embeddable widget on `http://localhost:3001`.
 
 ### Testing the Integration
 - Open `http://localhost:3000` in your browser.
