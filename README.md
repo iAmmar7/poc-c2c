@@ -13,6 +13,10 @@ The purpose of this POC is to analyze why the embeddable code cannot access the 
 
 This will help identify potential limitations when integrating a Click-to-Call widget on third-party platforms.
 
+## Results
+
+The POC shows that for the embeddable code to access the user's mic/camera, the host must specify it in an iframe using `allow="microphone; camera"`. The host also needs to remove any CSP-related restrictions when serving the embeddable code.
+
 ### How to run
 
 1. Start the Host Server
