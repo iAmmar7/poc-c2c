@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>C2C Demo</title>
+  </head>
+  <body>
+    <script>
+      // Place this script anywhere in the header or body of the HTML document
+      ((a) => {
+        var i,
+          s,
+          k,
+          n = 'Signalwire C2C API',
+          o = 'sw',
+          c = 'spawn',
+          x = 'Loaded',
+          h = 'authenticate',
+          y = a['apiKey'],
+          r = document,
+          k = window;
+        k = k[o] || (k[o] = {});
+        var w = k.c2c || (k.c2c = {}),
+          l = (p) =>
+            new Promise(async (u, v) => {
+              await (s = r.createElement('script'));
+              s.src = `${k.codeRepository}/${p}.js`;
+              w[`${p}${x}`] = () => {
+                delete w[`${p}${a}`];
+                !w[h] ? w[c](h, y).then(u) : u();
+              };
+              s.onerror = () => (i = v(Error(n + ' could not load.')));
+              s.nonce = r.querySelector('script[nonce]')?.nonce || '';
+              r.head.append(s);
+            });
+        k.relayHost = 'puc.signalwire.com';
+        k.codeRepository = 'https://app.signalwire.com';
+        k.authEndpoint =
+          'https://iammar7.signalwire.com/api/fabric/embeds/tokens';
+        w[c]
+          ? k[h](y)
+          : (w[c] = (f, ...n) =>
+              new Promise((g) => {
+                w[f] ? g(w[f](...n)) : l(f).then(() => g(w[f](...n)));
+              }));
+      })({ apiKey: 'c2c_d7880edca0820e027cb654d59cff1af0', v: '0.0.1' });
+
+      // if you don't want bootstrap the component immediately just call
+      // the next function in another place
+      sw.c2c.spawn('C2CButton', {
+        //These parameters were initially set in the dashboard but you can edit them if needed
+
+        // destination Address to call
+        destination: '/public/conversation-test-room',
+
+        //parent element where the start call button will be presented
+        buttonParentSelector: '#click2call',
+
+        //optional HTML markup to render a custom button
+        innerHTML: null,
+
+        //parent element where the call widget will be presented
+        callParentSelector: '#call',
+
+        //A callback function called before the call is requested
+        // should return true if we should continue with the call request
+        // or false to cancel the call
+        beforeCallStartFn: () => {
+          console.log('attempting to start new call...');
+          return true;
+        },
+
+        //A callback function called once the call is connected
+        afterCallStartFn: () => {
+          console.log('call started.');
+        },
+
+        //A callback function called before the call hangup is requested
+        // should return true if we should continue with the hangup request
+        // or false to cancel the hangup
+        beforeCallLeaveFn: () => {
+          console.log('attempting to hangup call...');
+          return true;
+        },
+
+        //A callback function called once the call ended and the widget is not visible anymore
+        afterCallLeaveFn: () => {
+          console.log('call ended.');
+        },
+
+        //A callback function called if any error happens during call setup
+        onCallError: (error) => {
+          console.error(error);
+        },
+      });
+    </script>
+  </body>
+</html>
